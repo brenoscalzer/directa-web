@@ -24,18 +24,17 @@ interface Props {
 export default function OutlinedCard({ product }: Props) {
   const appContext = useContext(AppContext);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
 
   const onAddItem = () => {
     if (!appContext.logged) {
-      setMessage('Please login to add a item to your cart');
+      appContext.setMessage('Please login to add a item to your cart');
       return;
     }
     setLoading(true);
     addToCart(product.id).then(() => {
-      setMessage('Item added successfully')
+      appContext.setMessage('Item added successfully');
     }).catch((err) => {
-      setMessage(err.response.data.message);
+      appContext.setMessage(err.response.data.message);
     }).finally(() => {
       setLoading(false);
     });
@@ -57,7 +56,7 @@ export default function OutlinedCard({ product }: Props) {
           <Typography variant="h6" component="div">
             R${product.price}
           </Typography>
-          <Typography variant="body2" sx={{ marginTop: '20px' }}>
+          <Typography variant="body2" sx={{ marginTop: '10px' }}>
             {product.description}
           </Typography>
         </CardContent>
@@ -67,12 +66,6 @@ export default function OutlinedCard({ product }: Props) {
           </Button>
         </CardActions>
       </Card>
-      <Snackbar
-        open={Boolean(message)}
-        autoHideDuration={6000}
-        onClose={() => setMessage('')}
-        message={message}
-      />
     </Box>
   );
 }

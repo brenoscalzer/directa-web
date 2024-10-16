@@ -18,7 +18,7 @@ export default function CardList(props: Props) {
       <Grid container spacing={2}>
         {
           props.products.map((item, index) => (
-            <Grid size={4} key={`${item.createdAt}${index}`}>
+            <Grid size={3} key={`${item.createdAt}${index}`}>
               <Card product={item} />
             </Grid>
           ))
